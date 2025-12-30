@@ -43,6 +43,16 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
+            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-4"
+          >
+            SaaS products we own. Software we build for others. Shipped fast.
+          </motion.p>
+
+          {/* Highlighted tagline */}
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
             className="text-lg md:text-xl max-w-2xl mx-auto mb-12"
           >
             <span className="text-accent font-semibold">Real problems. Real products. Shipped fast.</span>
