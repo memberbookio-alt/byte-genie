@@ -1,38 +1,154 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Users, Lightbulb, Building2 } from "lucide-react";
+import { useState } from "react";
+import { ExternalLink, Users, Lightbulb, Building2, Apple, Play } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const products = [
   {
     icon: Users,
     name: "MemberBook.io",
     type: "SaaS Product",
+    tagline: "Membership Management Made Simple",
     problem: "Membership organizations struggle with scattered tools and manual processes.",
     solution: "An all-in-one membership management platform with automated billing, member portals, and engagement tools.",
     outcome: "Live & Active — Powering membership communities",
-    link: "#",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
+    year: "BUILT IN 2024",
+    hasAppStore: true,
     status: "SHIPPED",
   },
   {
     icon: Lightbulb,
     name: "IdeaStash.app",
     type: "SaaS Product",
+    tagline: "Where Great Ideas Take Shape",
     problem: "Great ideas get lost in notes apps, never seeing the light of day.",
     solution: "A beautiful idea management tool that helps you capture, develop, and prioritize your best ideas.",
     outcome: "Live & Active — Helping builders ship",
-    link: "#",
+    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&h=400&fit=crop",
+    year: "BUILT IN 2024",
+    hasAppStore: true,
     status: "SHIPPED",
   },
   {
     icon: Building2,
     name: "Client Projects",
     type: "Custom Builds",
+    tagline: "Bespoke Software Solutions",
     problem: "D2C and B2B businesses need custom software that drives revenue, not generic templates.",
     solution: "Bespoke applications tailored to your exact business model, from e-commerce platforms to internal tools.",
     outcome: "Multiple shipped projects generating revenue for clients",
-    link: "#",
+    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=400&fit=crop",
+    year: "ONGOING",
+    hasAppStore: false,
     status: "ONGOING",
   },
 ];
+
+const ProductCard = ({ product, index }: { product: typeof products[0]; index: number }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: index * 0.15 }}
+      className="group relative h-[500px] w-full rounded-3xl overflow-hidden cursor-pointer"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Background image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+        style={{ backgroundImage: `url(${product.image})` }}
+      />
+      
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+      
+      {/* Glow effect on hover */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isHovered ? 1 : 0 }}
+        className="absolute inset-0 bg-accent/10 pointer-events-none"
+      />
+
+      {/* Content */}
+      <div className="absolute inset-0 p-8 flex flex-col justify-end">
+        {/* Glowing title */}
+        <motion.h3 
+          className="text-3xl md:text-4xl font-bold mb-2 transition-all duration-300"
+          style={{
+            textShadow: isHovered ? '0 0 30px hsl(var(--accent)), 0 0 60px hsl(var(--accent) / 0.5)' : 'none',
+            color: isHovered ? 'hsl(var(--accent))' : 'hsl(var(--foreground))'
+          }}
+        >
+          {product.name}
+        </motion.h3>
+        
+        <p className="text-muted-foreground mb-4">{product.tagline}</p>
+
+        {/* Hover reveal content */}
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ 
+            opacity: isHovered ? 1 : 0, 
+            height: isHovered ? 'auto' : 0 
+          }}
+          transition={{ duration: 0.3 }}
+          className="overflow-hidden"
+        >
+          <div className="space-y-3 mb-6">
+            <p className="text-sm text-foreground/80">
+              <span className="text-accent font-medium">Problem: </span>
+              {product.problem}
+            </p>
+            <p className="text-sm text-foreground/80">
+              <span className="text-accent font-medium">Solution: </span>
+              {product.solution}
+            </p>
+          </div>
+
+          {/* App store buttons */}
+          {product.hasAppStore && (
+            <div className="flex gap-3 mb-4">
+              <Button variant="secondary" size="sm" className="gap-2">
+                <Apple className="w-4 h-4" />
+                App Store
+              </Button>
+              <Button variant="secondary" size="sm" className="gap-2">
+                <Play className="w-4 h-4" />
+                Play Store
+              </Button>
+            </div>
+          )}
+
+          {!product.hasAppStore && (
+            <Button variant="hero" size="sm" className="gap-2">
+              Learn More
+              <ExternalLink className="w-4 h-4" />
+            </Button>
+          )}
+        </motion.div>
+
+        {/* Year badge */}
+        <div className="flex items-center gap-2 mt-auto pt-4">
+          <span className="text-xs text-muted-foreground">{product.year}</span>
+          <ExternalLink className="w-4 h-4 text-muted-foreground" />
+        </div>
+      </div>
+
+      {/* Border glow on hover */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isHovered ? 1 : 0 }}
+        className="absolute inset-0 rounded-3xl border-2 border-accent/50 pointer-events-none"
+        style={{ boxShadow: '0 0 30px hsl(var(--accent) / 0.3)' }}
+      />
+    </motion.div>
+  );
+};
 
 const ProductsSection = () => {
   return (
@@ -60,80 +176,10 @@ const ProductsSection = () => {
           </p>
         </motion.div>
 
-        {/* Accent dot */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.3 }}
-          className="flex justify-center mb-12"
-        >
-          <span className="accent-dot animate-glow-pulse" />
-        </motion.div>
-
         {/* Products grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product, index) => (
-            <motion.div
-              key={product.name}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-              className="group relative bg-card border border-border rounded-2xl p-8 card-hover"
-            >
-              {/* Status badge */}
-              <div className="absolute top-6 right-6">
-                <span className={`text-xs font-semibold tracking-wider px-3 py-1 rounded-full ${
-                  product.status === "SHIPPED" 
-                    ? "bg-accent/10 text-accent" 
-                    : "bg-secondary text-muted-foreground"
-                }`}>
-                  {product.status}
-                </span>
-              </div>
-
-              {/* Icon */}
-              <div className="w-14 h-14 rounded-xl bg-secondary flex items-center justify-center mb-6 group-hover:bg-accent/10 transition-colors">
-                <product.icon className="w-7 h-7 text-foreground group-hover:text-accent transition-colors" />
-              </div>
-
-              {/* Content */}
-              <div className="mb-6">
-                <p className="text-xs text-muted-foreground tracking-wider uppercase mb-2">
-                  {product.type}
-                </p>
-                <h3 className="text-2xl font-bold mb-4 group-hover:text-accent transition-colors">
-                  {product.name}
-                </h3>
-              </div>
-
-              {/* Details */}
-              <div className="space-y-4 text-sm">
-                <div>
-                  <p className="text-muted-foreground font-medium mb-1">Problem</p>
-                  <p className="text-foreground/80">{product.problem}</p>
-                </div>
-                <div>
-                  <p className="text-muted-foreground font-medium mb-1">Solution</p>
-                  <p className="text-foreground/80">{product.solution}</p>
-                </div>
-                <div className="pt-4 border-t border-border">
-                  <p className="text-accent font-medium flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                    {product.outcome}
-                  </p>
-                </div>
-              </div>
-
-              {/* Link */}
-              <a 
-                href={product.link}
-                className="absolute inset-0 rounded-2xl"
-                aria-label={`Learn more about ${product.name}`}
-              />
-              <ExternalLink className="absolute bottom-8 right-8 w-5 h-5 text-muted-foreground group-hover:text-accent transition-colors opacity-0 group-hover:opacity-100" />
-            </motion.div>
+            <ProductCard key={product.name} product={product} index={index} />
           ))}
         </div>
       </div>
