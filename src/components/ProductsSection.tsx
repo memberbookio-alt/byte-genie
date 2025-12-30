@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { ExternalLink, Users, Lightbulb, Building2, Apple, Play } from "lucide-react";
+import { ExternalLink, Users, Lightbulb, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const products = [
@@ -77,6 +77,11 @@ const ProductCard = ({ product, index }: { product: typeof products[0]; index: n
 
         {/* Bottom content */}
         <div className="relative">
+          {/* Ownership label */}
+          <p className="text-xs text-muted-foreground mb-2 uppercase tracking-wider">
+            Built & owned by Byte Genie Technologies
+          </p>
+
           {/* Glowing title */}
           <motion.h3 
             className="text-3xl md:text-4xl font-bold mb-2 transition-all duration-300"
@@ -114,26 +119,23 @@ const ProductCard = ({ product, index }: { product: typeof products[0]; index: n
                 {product.solution}
               </p>
 
-              {/* App store buttons */}
-              {product.hasAppStore && (
-                <div className="flex gap-3">
-                  <Button variant="secondary" size="sm" className="gap-2 bg-background text-foreground hover:bg-background/90">
-                    <Apple className="w-4 h-4" />
-                    App Store
+              {/* Action buttons - no icons */}
+              <div className="flex gap-3">
+                {product.hasAppStore ? (
+                  <>
+                    <Button variant="secondary" size="sm" className="bg-background text-foreground hover:bg-background/90">
+                      App Store
+                    </Button>
+                    <Button variant="secondary" size="sm" className="bg-background text-foreground hover:bg-background/90">
+                      Play Store
+                    </Button>
+                  </>
+                ) : (
+                  <Button variant="secondary" size="sm" className="bg-background text-foreground hover:bg-background/90">
+                    Learn More
                   </Button>
-                  <Button variant="secondary" size="sm" className="gap-2 bg-background text-foreground hover:bg-background/90">
-                    <Play className="w-4 h-4" />
-                    Play Store
-                  </Button>
-                </div>
-              )}
-
-              {!product.hasAppStore && (
-                <Button variant="secondary" size="sm" className="gap-2 bg-background text-foreground hover:bg-background/90">
-                  Learn More
-                  <ExternalLink className="w-4 h-4" />
-                </Button>
-              )}
+                )}
+              </div>
             </div>
           </motion.div>
         </div>

@@ -53,10 +53,31 @@ const WhyUsSection = () => {
               </span>{" "}
               expertise
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-muted-foreground mb-10">
               Each problem is looked at from a fresh lens to provide you with a solution 
               that solves your specific requirements and integrates with your existing infrastructure.
             </p>
+
+            {/* Glass CTA card with yellow glow circles */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="relative overflow-hidden rounded-2xl border border-foreground/10 bg-foreground/5 backdrop-blur-md p-8"
+            >
+              {/* Glowing circles */}
+              <div className="absolute -top-10 -left-10 w-32 h-32 bg-accent/30 rounded-full blur-3xl" />
+              <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-accent/20 rounded-full blur-3xl" />
+              
+              <div className="relative z-10">
+                <h3 className="text-2xl font-bold mb-2">Work with us today</h3>
+                <p className="text-muted-foreground mb-4">Ready to ship your next product?</p>
+                <button className="px-6 py-3 bg-accent text-accent-foreground font-semibold rounded-lg hover:bg-accent/90 transition-colors">
+                  Get Started
+                </button>
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* Right column - Reasons */}
