@@ -69,6 +69,16 @@
     cursor: none;
   }
 
+  @media (max-width: 768px) {
+    * {
+      cursor: auto;
+    }
+
+    body {
+      cursor: auto;
+    }
+  }
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold tracking-tight;
   }
@@ -121,5 +131,15 @@
 
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Hide scrollbars for horizontal carousels */
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
   }
 }

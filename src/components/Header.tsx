@@ -12,12 +12,13 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <span className="accent-dot" />
+            <img
+              src="/brand-BGT.png"
+              alt="Byte Genie logo"
+              className="h-10 w-10 object-contain drop-shadow-sm"
+            />
             <span className="text-xl font-bold tracking-tight">
               BYTE GENIE
-            </span>
-            <span className="text-xs font-medium text-muted-foreground tracking-widest">
-              TECHNOLOGIES
             </span>
           </div>
 

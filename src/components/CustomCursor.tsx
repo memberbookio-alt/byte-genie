@@ -4,8 +4,15 @@ import { motion } from "framer-motion";
 const CustomCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const evaluateIsMobile = () => {
+      const byWidth = window.matchMedia("(max-width: 767px)").matches;
+      const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+      setIsMobile(byWidth || coarsePointer);
+    };
+
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -24,14 +31,19 @@ const CustomCursor = () => {
       setIsHovering(!!isInteractive);
     };
 
+    evaluateIsMobile();
+    window.addEventListener('resize', evaluateIsMobile);
     window.addEventListener('mousemove', updateMousePosition);
     window.addEventListener('mouseover', handleMouseOver);
 
     return () => {
+      window.removeEventListener('resize', evaluateIsMobile);
       window.removeEventListener('mousemove', updateMousePosition);
       window.removeEventListener('mouseover', handleMouseOver);
     };
   }, []);
+
+  if (isMobile) return null;
 
   return (
     <>
