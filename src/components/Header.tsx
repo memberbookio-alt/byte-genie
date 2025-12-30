@@ -1,0 +1,51 @@
+import { motion } from "framer-motion";
+
+const Header = () => {
+  return (
+    <motion.header 
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50"
+    >
+      <div className="container mx-auto px-6 lg:px-12">
+        <div className="flex items-center justify-between h-20">
+          {/* Logo */}
+          <div className="flex items-center gap-3">
+            <span className="accent-dot" />
+            <span className="text-xl font-bold tracking-tight">
+              BYTE GENIE
+            </span>
+            <span className="text-xs font-medium text-muted-foreground tracking-widest">
+              TECHNOLOGIES
+            </span>
+          </div>
+
+          {/* Navigation */}
+          <nav className="hidden md:flex items-center gap-8">
+            <a href="#products" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Products
+            </a>
+            <a href="#process" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Process
+            </a>
+            <a href="#why-us" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Why Us
+            </a>
+            <a href="#contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Contact
+            </a>
+          </nav>
+
+          {/* Menu Icon for Mobile */}
+          <button className="md:hidden flex flex-col gap-1.5">
+            <span className="w-6 h-0.5 bg-foreground" />
+            <span className="w-6 h-0.5 bg-foreground" />
+          </button>
+        </div>
+      </div>
+    </motion.header>
+  );
+};
+
+export default Header;
