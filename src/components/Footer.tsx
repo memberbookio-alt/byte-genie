@@ -17,9 +17,6 @@ const Footer = () => {
             <span className="text-lg font-bold tracking-tight">
               BYTE GENIE
             </span>
-            <span className="text-xs font-medium text-muted-foreground tracking-widest">
-              TECHNOLOGIES
-            </span>
           </div>
 
           {/* Links */}
@@ -40,7 +37,7 @@ const Footer = () => {
 
           {/* Copyright */}
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Byte Genie Technologies. All rights reserved.
+            © {new Date().getFullYear()} BYTE GENIE. All rights reserved.
           </p>
         </div>
       </div>

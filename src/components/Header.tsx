@@ -38,11 +38,7 @@ const Header = () => {
             </a>
           </nav>
 
-          {/* Menu Icon for Mobile */}
-          <button className="md:hidden flex flex-col gap-1.5">
-            <span className="w-6 h-0.5 bg-foreground" />
-            <span className="w-6 h-0.5 bg-foreground" />
-          </button>
+          {/* Mobile menu intentionally removed per request */}
         </div>
       </div>
     </motion.header>
