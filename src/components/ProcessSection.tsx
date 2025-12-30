@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Telescope, Lightbulb, Wrench, ArrowRight } from "lucide-react";
-import { useRef, useState } from "react";
+import { Telescope, Lightbulb, Wrench } from "lucide-react";
+import { useRef } from "react";
 
 const steps = [
   {
@@ -9,7 +9,6 @@ const steps = [
     description: "Together, we dive into your world. A brainstorming session where your challenges meet our creative thinking.",
     subtext: "We learn from you",
     icon: Telescope,
-    color: "from-blue-500/20 to-cyan-500/20",
   },
   {
     number: "02",
@@ -17,7 +16,6 @@ const steps = [
     description: "We craft a tailored action plan that aligns with your budget and requirements — no guesswork, just solutions.",
     subtext: "We build for you",
     icon: Lightbulb,
-    color: "from-accent/20 to-yellow-500/20",
   },
   {
     number: "03",
@@ -25,172 +23,92 @@ const steps = [
     description: "It's go time. Our team gets to work, setting plans into motion, turning ideas into real-world impact.",
     subtext: "We keep you looped",
     icon: Wrench,
-    color: "from-green-500/20 to-emerald-500/20",
   },
 ];
 
-const ProcessCard = ({ step, index, activeIndex, setActiveIndex }: { 
-  step: typeof steps[0]; 
-  index: number; 
-  activeIndex: number;
-  setActiveIndex: (index: number) => void;
-}) => {
-  const isActive = activeIndex === index;
+const ProcessStep = ({ step, index }: { step: typeof steps[0]; index: number }) => {
+  const stepRef = useRef<HTMLDivElement>(null);
   const Icon = step.icon;
+
+  const { scrollYProgress } = useScroll({
+    target: stepRef,
+    offset: ["start end", "center center"]
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 1, 1]);
+  const x = useTransform(scrollYProgress, [0, 1], [50, 0]);
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: -50 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.2 }}
-      onMouseEnter={() => setActiveIndex(index)}
-      className={`group relative p-8 rounded-3xl border transition-all duration-500 cursor-pointer ${
-        isActive 
-          ? 'bg-card border-accent/50 shadow-[0_0_40px_hsl(var(--accent)/0.15)]' 
-          : 'bg-card/50 border-border hover:border-accent/30'
-      }`}
+      ref={stepRef}
+      style={{ opacity, x }}
+      className="group py-10 border-b border-border last:border-none"
     >
-      {/* Glow background */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isActive ? 1 : 0 }}
-        className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${step.color} blur-xl -z-10`}
-      />
+      <div className="flex items-start gap-6 md:gap-10">
+        {/* Left - Number */}
+        <div className="flex-shrink-0">
+          <span className="text-6xl md:text-8xl font-bold text-muted-foreground/20 group-hover:text-accent/30 transition-colors duration-500">
+            {step.number}
+          </span>
+        </div>
 
-      <div className="flex items-start gap-6">
-        {/* Number */}
-        <motion.div 
-          className={`text-6xl md:text-7xl font-bold transition-colors duration-300 ${
-            isActive ? 'text-accent' : 'text-muted-foreground/30'
-          }`}
-          animate={{ scale: isActive ? 1.05 : 1 }}
-        >
-          {step.number}
-        </motion.div>
-
-        {/* Content */}
-        <div className="flex-1">
+        {/* Right - Content */}
+        <div className="flex-1 pt-2">
           <div className="flex items-center gap-4 mb-4">
-            <motion.div 
-              className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${
-                isActive ? 'bg-accent text-accent-foreground' : 'bg-secondary text-foreground'
-              }`}
-              animate={{ rotate: isActive ? 360 : 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <Icon className="w-6 h-6" />
-            </motion.div>
-            <h3 className={`text-3xl md:text-4xl font-bold transition-colors duration-300 ${
-              isActive ? 'text-accent' : 'text-foreground'
-            }`}>
+            <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center group-hover:bg-accent/10 transition-colors duration-300">
+              <Icon className="w-6 h-6 text-accent" />
+            </div>
+            <h3 className="text-3xl md:text-4xl font-bold group-hover:text-accent transition-colors duration-300">
               {step.title}
             </h3>
           </div>
 
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ 
-              height: isActive ? 'auto' : 0, 
-              opacity: isActive ? 1 : 0 
-            }}
-            transition={{ duration: 0.3 }}
-            className="overflow-hidden"
-          >
-            <p className="text-lg text-foreground/80 mb-4 leading-relaxed">
-              {step.description}
-            </p>
-            <div className="flex items-center gap-2 text-accent">
-              <span className="font-medium">{step.subtext}</span>
-              <ArrowRight className="w-4 h-4" />
-            </div>
-          </motion.div>
+          <p className="text-lg text-muted-foreground leading-relaxed mb-3 max-w-2xl">
+            {step.description}
+          </p>
 
-          {!isActive && (
-            <p className="text-muted-foreground mt-2">{step.subtext}</p>
-          )}
+          <span className="text-accent font-medium">{step.subtext}</span>
         </div>
       </div>
-
-      {/* Connecting line */}
-      {index < steps.length - 1 && (
-        <div className="absolute -bottom-8 left-12 w-px h-8 bg-gradient-to-b from-border to-transparent" />
-      )}
     </motion.div>
   );
 };
 
 const ProcessSection = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"]
-  });
-
-  const progressWidth = useTransform(scrollYProgress, [0.2, 0.8], ["0%", "100%"]);
 
   return (
-    <section id="process" className="py-32 bg-card/30 relative" ref={sectionRef}>
-      {/* Progress bar */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-border">
-        <motion.div 
-          className="h-full bg-accent"
-          style={{ width: progressWidth }}
-        />
-      </div>
-
+    <section id="process" className="py-32 relative" ref={sectionRef}>
       <div className="container mx-auto px-6 lg:px-12">
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-20"
-        >
-          <div className="section-label mb-6">HOW WE SHIP</div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold">
-            Our{" "}
-            <span className="font-serif italic font-normal text-muted-foreground">
-              Process
-            </span>
-          </h2>
-        </motion.div>
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
+          {/* Left column - Heading (sticky) */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="lg:sticky lg:top-32"
+          >
+            <div className="section-label mb-6">HOW WE SHIP</div>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+              Our{" "}
+              <span className="font-serif italic font-normal text-muted-foreground">
+                Process
+              </span>
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              A streamlined approach that transforms your vision into reality. 
+              We keep it simple, focused, and effective.
+            </p>
+          </motion.div>
 
-        {/* Interactive steps */}
-        <div className="max-w-4xl mx-auto space-y-8">
-          {steps.map((step, index) => (
-            <ProcessCard 
-              key={step.title} 
-              step={step} 
-              index={index} 
-              activeIndex={activeIndex}
-              setActiveIndex={setActiveIndex}
-            />
-          ))}
+          {/* Right column - Steps */}
+          <div>
+            {steps.map((step, index) => (
+              <ProcessStep key={step.title} step={step} index={index} />
+            ))}
+          </div>
         </div>
-
-        {/* Step indicators */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex justify-center gap-3 mt-12"
-        >
-          {steps.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setActiveIndex(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                activeIndex === index 
-                  ? 'bg-accent w-8' 
-                  : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
-              }`}
-            />
-          ))}
-        </motion.div>
       </div>
     </section>
   );
