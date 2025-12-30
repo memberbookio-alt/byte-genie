@@ -37,7 +37,7 @@ const Footer = () => {
 
           {/* Copyright */}
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} BYTE GENIE. All rights reserved.
+            © {new Date().getFullYear()} BYTE GENIE TECHNOLOGIES. All rights reserved.
           </p>
         </div>
       </div>
