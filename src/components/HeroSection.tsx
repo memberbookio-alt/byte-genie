@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, ChevronDown } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 const HeroSection = () => {
   return (
@@ -43,11 +43,9 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 text-balance"
+            className="text-lg md:text-xl max-w-2xl mx-auto mb-12"
           >
-            We build and ship our own SaaS products while crafting custom, 
-            revenue-generating software for D2C and B2B businesses. 
-            Real problems. Real products. Shipped fast.
+            <span className="text-accent font-semibold">Real problems. Real products. Shipped fast.</span>
           </motion.p>
 
           {/* CTAs */}
@@ -69,22 +67,6 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Scroll indicator - more visible and separated from buttons */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
-      >
-        <span className="text-sm text-foreground/70 tracking-widest uppercase font-medium">Scroll</span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          className="w-10 h-10 rounded-full border-2 border-foreground/30 flex items-center justify-center"
-        >
-          <ChevronDown className="w-5 h-5 text-foreground/70" />
-        </motion.div>
-      </motion.div>
     </section>
   );
 };

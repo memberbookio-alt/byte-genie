@@ -54,88 +54,88 @@ const ProductCard = ({ product, index }: { product: typeof products[0]; index: n
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.15 }}
-      className="group relative h-[500px] w-full rounded-3xl overflow-hidden cursor-pointer"
+      className="group relative h-[500px] w-full rounded-3xl overflow-hidden cursor-pointer border border-border/30"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
+      {/* Grid background pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.3)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.3)_1px,transparent_1px)] bg-[size:40px_40px]" />
+      
       {/* Background image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 opacity-40"
         style={{ backgroundImage: `url(${product.image})` }}
       />
       
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-      
-      {/* Glow effect on hover */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isHovered ? 1 : 0 }}
-        className="absolute inset-0 bg-accent/10 pointer-events-none"
-      />
+      {/* Dark gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/40" />
 
-      {/* Content */}
-      <div className="absolute inset-0 p-8 flex flex-col justify-end">
-        {/* Glowing title */}
-        <motion.h3 
-          className="text-3xl md:text-4xl font-bold mb-2 transition-all duration-300"
-          style={{
-            textShadow: isHovered ? '0 0 30px hsl(var(--accent)), 0 0 60px hsl(var(--accent) / 0.5)' : 'none',
-            color: isHovered ? 'hsl(var(--accent))' : 'hsl(var(--foreground))'
-          }}
-        >
-          {product.name}
-        </motion.h3>
-        
-        <p className="text-muted-foreground mb-4">{product.tagline}</p>
+      {/* Content container */}
+      <div className="absolute inset-0 p-8 flex flex-col">
+        {/* Top area - can add decorative elements */}
+        <div className="flex-1" />
 
-        {/* Hover reveal content */}
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ 
-            opacity: isHovered ? 1 : 0, 
-            height: isHovered ? 'auto' : 0 
-          }}
-          transition={{ duration: 0.3 }}
-          className="overflow-hidden"
-        >
-          <div className="space-y-3 mb-6">
-            <p className="text-sm text-foreground/80">
-              <span className="text-accent font-medium">Problem: </span>
-              {product.problem}
-            </p>
-            <p className="text-sm text-foreground/80">
-              <span className="text-accent font-medium">Solution: </span>
-              {product.solution}
-            </p>
+        {/* Bottom content */}
+        <div className="relative">
+          {/* Glowing title */}
+          <motion.h3 
+            className="text-3xl md:text-4xl font-bold mb-2 transition-all duration-300"
+            style={{
+              textShadow: isHovered ? '0 0 30px hsl(var(--accent)), 0 0 60px hsl(var(--accent) / 0.5)' : 'none',
+              color: isHovered ? 'hsl(var(--accent))' : 'hsl(var(--foreground))'
+            }}
+          >
+            {product.name}
+          </motion.h3>
+          
+          {/* Year badge - always visible */}
+          <div className="flex items-center gap-2 mb-4">
+            <span className="text-xs text-muted-foreground">{product.year}</span>
+            <ExternalLink className="w-4 h-4 text-muted-foreground" />
           </div>
 
-          {/* App store buttons */}
-          {product.hasAppStore && (
-            <div className="flex gap-3 mb-4">
-              <Button variant="secondary" size="sm" className="gap-2">
-                <Apple className="w-4 h-4" />
-                App Store
-              </Button>
-              <Button variant="secondary" size="sm" className="gap-2">
-                <Play className="w-4 h-4" />
-                Play Store
-              </Button>
+          {/* Hover reveal content with yellow background */}
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ 
+              opacity: isHovered ? 1 : 0, 
+              height: isHovered ? 'auto' : 0 
+            }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden"
+          >
+            <div className="bg-accent rounded-2xl p-5 text-accent-foreground">
+              <p className="text-sm mb-2">
+                <span className="font-bold">Problem: </span>
+                {product.problem}
+              </p>
+              <p className="text-sm mb-4">
+                <span className="font-bold">Solution: </span>
+                {product.solution}
+              </p>
+
+              {/* App store buttons */}
+              {product.hasAppStore && (
+                <div className="flex gap-3">
+                  <Button variant="secondary" size="sm" className="gap-2 bg-background text-foreground hover:bg-background/90">
+                    <Apple className="w-4 h-4" />
+                    App Store
+                  </Button>
+                  <Button variant="secondary" size="sm" className="gap-2 bg-background text-foreground hover:bg-background/90">
+                    <Play className="w-4 h-4" />
+                    Play Store
+                  </Button>
+                </div>
+              )}
+
+              {!product.hasAppStore && (
+                <Button variant="secondary" size="sm" className="gap-2 bg-background text-foreground hover:bg-background/90">
+                  Learn More
+                  <ExternalLink className="w-4 h-4" />
+                </Button>
+              )}
             </div>
-          )}
-
-          {!product.hasAppStore && (
-            <Button variant="hero" size="sm" className="gap-2">
-              Learn More
-              <ExternalLink className="w-4 h-4" />
-            </Button>
-          )}
-        </motion.div>
-
-        {/* Year badge */}
-        <div className="flex items-center gap-2 mt-auto pt-4">
-          <span className="text-xs text-muted-foreground">{product.year}</span>
-          <ExternalLink className="w-4 h-4 text-muted-foreground" />
+          </motion.div>
         </div>
       </div>
 
@@ -146,6 +146,16 @@ const ProductCard = ({ product, index }: { product: typeof products[0]; index: n
         className="absolute inset-0 rounded-3xl border-2 border-accent/50 pointer-events-none"
         style={{ boxShadow: '0 0 30px hsl(var(--accent) / 0.3)' }}
       />
+
+      {/* Navigation dots */}
+      <div className="absolute bottom-4 right-4 flex gap-1.5">
+        {products.map((_, i) => (
+          <div 
+            key={i} 
+            className={`w-2 h-2 rounded-full ${i === index ? 'bg-foreground' : 'bg-muted-foreground/50'}`}
+          />
+        ))}
+      </div>
     </motion.div>
   );
 };
