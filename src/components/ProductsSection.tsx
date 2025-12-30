@@ -177,7 +177,13 @@ const ProductsSection = () => {
           <div className="section-label mb-6">YOU'RE IN GOOD HANDS</div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
             We Ship.{" "}
-            <span className="font-serif italic font-normal text-muted-foreground">
+            <span 
+              className="font-serif italic font-normal"
+              style={{
+                textShadow: '0 0 40px hsl(var(--accent)), 0 0 80px hsl(var(--accent) / 0.5)',
+                color: 'hsl(var(--accent))'
+              }}
+            >
               All the time.
             </span>
           </h2>
