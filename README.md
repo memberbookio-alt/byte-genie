@@ -2,6 +2,9 @@
 
 Marketing site for Byte Genie Technologies, built with Vite + React + TypeScript + Tailwind + shadcn/ui. The site highlights Byte Genie products, client work, and contact flows with animated hero sections and a horizontal product carousel.
 
+## Live here 
+Click here [https://byte-genie-landing.vercel.app/]
+
 ## Tech Stack
 - Vite + React + TypeScript
 - Tailwind CSS + shadcn/ui components
