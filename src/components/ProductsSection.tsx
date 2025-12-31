@@ -32,7 +32,7 @@ const products: Product[] = [
     problem: "Membership organizations struggle with scattered tools and manual processes.",
     solution: "An all-in-one membership management platform with automated billing, member portals, and engagement tools.",
     outcome: "Live & Active — Powering membership communities",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
+    image: "/images/products-bg/memberbook2.png",
     year: "BUILT IN 2025",
     hasAppStore: true,
     status: "SHIPPED",
@@ -48,10 +48,10 @@ const products: Product[] = [
     problem: "Great ideas get lost in notes apps, never seeing the light of day.",
     solution: "A beautiful idea management tool that helps you capture, develop, and prioritize your best ideas.",
     outcome: "Live & Active — Helping builders ship",
-    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&h=400&fit=crop",
+    image: "/images/products-bg/default.png",
     year: "BUILT IN 2026",
     hasAppStore: true,
-    status: "SHIPPED",
+    status: "ONGOING",
     ownership: "Built & owned by Byte Genie",
   },
   {
@@ -62,7 +62,7 @@ const products: Product[] = [
     problem: "Founders and product teams need concise, trustworthy tech breakdowns before committing to solutions.",
     solution: "A Byte Genie-owned publication that turns complex tech topics into actionable, real-world guidance.",
     outcome: "Live — Helping teams make better technical bets",
-    image: "https://images.unsplash.com/photo-1451186859696-371d9477be93?w=600&h=400&fit=crop",
+    image: "/images/products-bg/TDD.png",
     year: "BUILT IN 2025",
     hasAppStore: false,
     status: "LIVE",
@@ -78,7 +78,7 @@ const products: Product[] = [
     problem: "BCD Global needed a modern digital presence that showcases breadth of services while capturing leads.",
     solution: "Redesigned, performant site with clear service stories, calls-to-action, and conversion-focused flows.",
     outcome: "Live — Driving qualified leads for BCD Global",
-    image: "https://images.unsplash.com/photo-1454165205744-3b78555e5572?w=600&h=400&fit=crop",
+    image: "/images/products-bg/BCDglobal.png",
     year: "SHIPPED IN 2025",
     hasAppStore: false,
     status: "LIVE",
@@ -94,7 +94,7 @@ const products: Product[] = [
     problem: "D2C and B2B businesses need custom software that drives revenue, not generic templates.",
     solution: "Bespoke applications tailored to your exact business model, from e-commerce platforms to internal tools.",
     outcome: "Multiple shipped projects generating revenue for clients",
-    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=400&fit=crop",
+    image: "/images/products-bg/Client.png",
     year: "ONGOING",
     hasAppStore: false,
     status: "ONGOING",
@@ -122,7 +122,7 @@ const ProductCard = ({ product, index }: { product: Product; index: number }) =>
       {/* Background image */}
       <div 
         className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 opacity-45"
-        style={{ backgroundImage: `url(${product.image})` }}
+        style={{ backgroundImage: `url(${product.image || '/images/products/default.png'})` }}
       />
       
       {/* Dark gradient overlay */}
