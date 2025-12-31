@@ -13,7 +13,7 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center gap-3">
             <img
-              src="/brand-BGT.png"
+              src="/images/logos/brand-BGT.png"
               alt="Byte Genie logo"
               className="h-10 w-10 object-contain drop-shadow-sm"
             />
