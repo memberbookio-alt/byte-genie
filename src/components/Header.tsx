@@ -18,7 +18,7 @@ const Header = () => {
               className="h-10 w-10 object-contain drop-shadow-sm"
             />
             <span className="text-xl font-bold tracking-tight">
-              BYTE GENIE
+              Byte Genie
             </span>
           </a>
 

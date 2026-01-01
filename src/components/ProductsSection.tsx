@@ -320,9 +320,16 @@ const ProductsSection = () => {
         {/* Products horizontal scroll */}
         <div className="relative">
           <div
-            className="flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory px-4 md:px-6 scrollbar-none"
+            className="flex gap-6 overflow-x-auto pb-6 snap-x snap-proximity px-4 md:px-6 scrollbar-none"
             ref={scrollerRef}
-            style={{ scrollSnapStop: "always", scrollPaddingLeft: "1.5rem", scrollPaddingRight: "1.5rem" }}
+            style={{
+              scrollSnapStop: "always",
+              scrollPaddingLeft: "1.5rem",
+              scrollPaddingRight: "1.5rem",
+              scrollBehavior: "smooth",
+              WebkitOverflowScrolling: "touch",
+              scrollSnapType: "x proximity",
+            }}
           >
             {products.map((product, index) => (
               <ProductCard key={product.name} product={product} index={index} />
