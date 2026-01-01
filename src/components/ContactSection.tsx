@@ -16,16 +16,45 @@ const ContactSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    toast({
-      title: "Enquiry Submitted",
-      description: "We'll get back to you within 24 hours.",
-    });
-    
-    setFormData({ name: "", company: "", message: "" });
-    setIsSubmitting(false);
+    const sheetEndpoint = import.meta.env.VITE_GOOGLE_SHEET_WEBAPP_URL;
+
+    try {
+      if (!sheetEndpoint) {
+        throw new Error("Missing Google Sheets endpoint");
+      }
+
+      const payload = {
+        ...formData,
+        source: "landing-contact",
+        submittedAt: new Date().toISOString(),
+      };
+
+      const response = await fetch(sheetEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "text/plain;charset=UTF-8",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+
+      toast({
+        title: "Enquiry submitted",
+        description: "We've logged your details and will get back to you within 24 hours.",
+        variant: "success",
+      });
+      setFormData({ name: "", company: "", message: "" });
+    } catch (error) {
+      toast({
+        title: "Submission failed",
+        description: error instanceof Error ? error.message : "Please try again in a moment.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

@@ -4,7 +4,7 @@ import { ArrowRight, Sparkles } from "lucide-react";
 
 const HeroSection = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-card/30" />
       
@@ -65,13 +65,17 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.7 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-24"
           >
-            <Button variant="hero" size="xl" className="group">
-              Build for me
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+            <Button variant="hero" size="xl" className="group" asChild>
+              <a href="#contact">
+                Build for me
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </a>
             </Button>
-            <Button variant="heroOutline" size="xl" className="group">
-              <Sparkles className="w-5 h-5" />
-              Try our products
+            <Button variant="heroOutline" size="xl" className="group" asChild>
+              <a href="#products">
+                <Sparkles className="w-5 h-5" />
+                Try our products
+              </a>
             </Button>
           </motion.div>
         </div>
