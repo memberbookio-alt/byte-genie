@@ -11,7 +11,7 @@ const Header = () => {
       <div className="container mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="#home" className="flex items-center gap-3">
+          <a href="#home" className="flex items-center gap-2">
             <img
               src="/images/logos/logo-transparent.png"
               alt="Byte Genie logo"

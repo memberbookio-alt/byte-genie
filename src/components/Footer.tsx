@@ -13,7 +13,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center md:items-center justify-between gap-8 text-center md:text-left">
           {/* Logo */}
           <div className="order-1 flex flex-col items-center md:items-start gap-2">
-            <a href="#home" className="flex items-center gap-3">
+            <a href="#home" className="flex items-center gap-2">
               <img
                 src="/images/logos/logo-transparent.png"
                 alt="Byte Genie logo"
