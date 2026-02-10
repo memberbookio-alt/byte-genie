@@ -79,18 +79,18 @@ const ProcessStep = ({ step, index, totalSteps }: { step: typeof steps[0]; index
       </motion.div>
 
       {/* Content */}
-      <div className="ml-8 md:ml-24 w-full py-16">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="ml-6 sm:ml-8 md:ml-24 w-full py-10 sm:py-16">
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-10 lg:gap-12 items-center">
           {/* Left - Step info */}
           <div>
             <div className="flex items-center gap-4 mb-4">
               <span className="text-6xl md:text-7xl font-bold text-accent/20">{step.number}</span>
               <span className="text-sm text-muted-foreground uppercase tracking-wider">{step.label}</span>
             </div>
-            <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4">
               {step.title}
             </h3>
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
               {step.description}
             </p>
           </div>
@@ -120,9 +120,9 @@ const ProcessSection = () => {
   });
 
   return (
-    <section id="process" className="py-32 relative" ref={sectionRef}>
-      <div className="container mx-auto px-6 lg:px-12">
-        <div className="grid lg:grid-cols-12 gap-16">
+    <section id="process" className="py-16 sm:py-24 lg:py-32 relative" ref={sectionRef}>
+      <div className="container mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="grid lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16">
           {/* Left column - Sticky header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

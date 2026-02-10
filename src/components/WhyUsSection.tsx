@@ -30,9 +30,9 @@ const reasons = [
 
 const WhyUsSection = () => {
   return (
-    <section id="why-us" className="py-32 relative">
-      <div className="container mx-auto px-6 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
+    <section id="why-us" className="py-16 sm:py-24 lg:py-32 relative">
+      <div className="container mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-start">
           {/* Left column - Heading */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -42,7 +42,7 @@ const WhyUsSection = () => {
             className="lg:sticky lg:top-32"
           >
             <div className="section-label mb-6">WHY BYTE GENIE</div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">
               We bring{" "}
               <span className="font-serif italic font-normal text-accent">
                 engineering

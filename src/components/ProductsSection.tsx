@@ -48,11 +48,13 @@ const products: Product[] = [
     problem: "Great ideas get lost in notes apps, never seeing the light of day.",
     solution: "A beautiful idea management tool that helps you capture, develop, and prioritize your best ideas.",
     outcome: "Live & Active — Helping builders ship",
-    image: "/images/products-bg/default.png",
+    image: "/images/products-bg/IdeaStash.png",
     year: "BUILT IN 2026",
     hasAppStore: true,
     status: "ONGOING",
     ownership: "Built & owned by Byte Genie",
+    website: "https://ideastash.bytegenie.in/",
+    playStore: "https://play.google.com/store/apps/details?id=com.ideastash.app&hl=en_IN",
   },
   {
     icon: Lightbulb,
@@ -112,7 +114,7 @@ const ProductCard = ({ product, index }: { product: Product; index: number }) =>
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.15 }}
-      className={`group relative h-[640px] md:h-[660px] w-full min-w-[82vw] sm:min-w-[68vw] md:min-w-[52vw] lg:min-w-[45vw] xl:min-w-[40vw] rounded-[28px] overflow-hidden md:cursor-pointer border border-border/30 snap-center shadow-[0_24px_90px_rgba(0,0,0,0.5)] ${tilt}`}
+      className={`group relative h-[520px] sm:h-[580px] md:h-[640px] lg:h-[660px] w-full min-w-[90vw] xs:min-w-[85vw] sm:min-w-[68vw] md:min-w-[52vw] lg:min-w-[45vw] xl:min-w-[40vw] rounded-[28px] overflow-hidden md:cursor-pointer border border-border/30 snap-center shadow-[0_24px_90px_rgba(0,0,0,0.5)] ${tilt}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -129,70 +131,88 @@ const ProductCard = ({ product, index }: { product: Product; index: number }) =>
       <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/75 to-background" />
 
       {/* Content container */}
-      <div className="absolute inset-0 p-8 md:p-10 flex flex-col">
-        {/* Top content */}
-        <div className="flex flex-col items-start gap-3 max-w-xl">
-          <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground flex items-center gap-2">
-            <span className="inline-block h-2 w-2 rounded-full bg-accent" />
-            {product.type}
-          </p>
-          <motion.h3 
-            className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight drop-shadow-[0_12px_30px_rgba(0,0,0,0.35)]"
-            style={{
-              textShadow: isHovered ? '0 0 32px hsl(var(--accent)), 0 0 64px hsl(var(--accent) / 0.4)' : '0 0 18px rgba(0,0,0,0.45)',
-              color: isHovered ? 'hsl(var(--accent))' : 'hsl(var(--foreground))'
+      <div className="absolute inset-0 p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col">
+        {/* Title content - static on mobile, animates on desktop */}
+        <div className="flex-1 md:flex-none">
+          <motion.div
+            animate={{ 
+              y: isHovered ? 0 : 300,
             }}
+            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+            className="md:absolute md:top-10 md:left-10 md:right-10 flex flex-col items-start gap-2 md:gap-3 max-w-xl"
           >
-            {product.name}
-          </motion.h3>
-          <p className="text-base md:text-lg text-muted-foreground max-w-xl">
-            {product.tagline}
-          </p>
+            <p className="text-xs md:text-sm uppercase tracking-[0.18em] text-muted-foreground flex items-center gap-2">
+              <span className="inline-block h-2 w-2 rounded-full bg-accent" />
+              {product.type}
+            </p>
+            <motion.h3 
+              className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold leading-tight drop-shadow-[0_12px_30px_rgba(0,0,0,0.35)]"
+              animate={{
+                textShadow: isHovered 
+                  ? '0 0 32px hsl(var(--accent)), 0 0 64px hsl(var(--accent) / 0.4)' 
+                  : '0 0 18px rgba(0,0,0,0.45)',
+              }}
+              transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+              style={{
+                color: isHovered ? 'hsl(var(--accent))' : 'hsl(var(--foreground))'
+              }}
+            >
+              {product.name}
+            </motion.h3>
+            <p className="text-xs md:text-sm lg:text-base text-muted-foreground max-w-xl">
+              {product.tagline}
+            </p>
+          </motion.div>
         </div>
 
-        <div className="flex-1" />
+        {/* Bottom info section */}
+        <div className="relative mt-auto">
+          <motion.div
+            animate={{ 
+              opacity: isHovered ? 0 : 1,
+            }}
+            transition={{ duration: 0.4 }}
+          >
+            <p className="text-xs text-muted-foreground mb-2 sm:mb-3 uppercase tracking-wider flex items-center gap-2">
+              <span className="inline-block h-1.5 w-6 sm:w-8 rounded-full bg-accent/80 flex-shrink-0 mt-0.5" />
+              {product.ownership ?? "Built with Byte Genie"}
+            </p>
+            <div className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-muted-foreground">
+              <span className="px-2 sm:px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm text-foreground text-xs font-semibold">
+                {product.status}
+              </span>
+              <span className="text-xs">{product.year}</span>
+              <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 text-muted-foreground" />
+            </div>
+          </motion.div>
 
-        {/* Bottom content */}
-        <div className="relative">
-          <p className="text-xs text-muted-foreground mb-2 uppercase tracking-wider flex items-center gap-2">
-            <span className="inline-block h-1.5 w-8 rounded-full bg-accent/80" />
-            {product.ownership ?? "Built with Byte Genie"}
-          </p>
-
-          <div className="flex items-center gap-3 mb-4 text-sm text-muted-foreground">
-            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm text-foreground text-xs font-semibold">
-              {product.status}
-            </span>
-            <span className="text-xs">{product.year}</span>
-            <ExternalLink className="w-4 h-4 text-muted-foreground" />
-          </div>
-
+          {/* Detailed info shown on hover */}
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ 
               opacity: isHovered ? 1 : 0, 
               height: isHovered ? 'auto' : 0 
             }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
             className="overflow-hidden"
           >
             <div className="bg-accent rounded-2xl p-5 text-accent-foreground shadow-lg">
-              <p className="text-sm mb-2">
+              <p className="text-xs sm:text-sm mb-2">
                 <span className="font-bold">Problem: </span>
                 {product.problem}
               </p>
-              <p className="text-sm mb-4">
+              <p className="text-xs sm:text-sm mb-3 sm:mb-4">
                 <span className="font-bold">Solution: </span>
                 {product.solution}
               </p>
 
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2 sm:gap-3">
                 {product.website && (
                   <Button
                     asChild
                     variant="secondary"
                     size="sm"
-                    className="bg-background text-foreground hover:bg-background/90"
+                    className="bg-background text-foreground hover:bg-background/90 text-xs sm:text-sm"
                   >
                     <a href={product.website} target="_blank" rel="noreferrer" data-hoverable>
                       Website
@@ -205,7 +225,7 @@ const ProductCard = ({ product, index }: { product: Product; index: number }) =>
                     asChild
                     variant="secondary"
                     size="sm"
-                    className="bg-background text-foreground hover:bg-background/90"
+                    className="bg-background text-foreground hover:bg-background/90 text-xs sm:text-sm"
                   >
                     <a href={product.appStore} target="_blank" rel="noreferrer" data-hoverable>
                       App Store
@@ -218,7 +238,7 @@ const ProductCard = ({ product, index }: { product: Product; index: number }) =>
                     asChild
                     variant="secondary"
                     size="sm"
-                    className="bg-background text-foreground hover:bg-background/90"
+                    className="bg-background text-foreground hover:bg-background/90 text-xs sm:text-sm"
                   >
                     <a href={product.playStore} target="_blank" rel="noreferrer" data-hoverable>
                       Play Store
@@ -231,7 +251,7 @@ const ProductCard = ({ product, index }: { product: Product; index: number }) =>
                     asChild
                     variant="secondary"
                     size="sm"
-                    className="bg-background text-foreground hover:bg-background/90"
+                    className="bg-background text-foreground hover:bg-background/90 text-xs sm:text-sm"
                   >
                     <a href={product.link} target="_blank" rel="noreferrer" data-hoverable>
                       {product.ctaLabel ?? "Visit Project"}
@@ -240,7 +260,7 @@ const ProductCard = ({ product, index }: { product: Product; index: number }) =>
                 )}
 
                 {!product.website && !product.appStore && !product.playStore && !product.link && (
-                  <Button variant="secondary" size="sm" className="bg-background text-foreground hover:bg-background/90">
+                  <Button variant="secondary" size="sm" className="bg-background text-foreground hover:bg-background/90 text-xs sm:text-sm">
                     Learn More
                   </Button>
                 )}
@@ -287,8 +307,8 @@ const ProductsSection = () => {
   };
 
   return (
-    <section id="products" className="py-32 relative">
-      <div className="container mx-auto px-6 lg:px-12">
+    <section id="products" className="py-16 sm:py-24 lg:py-32 relative">
+      <div className="container mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -297,8 +317,8 @@ const ProductsSection = () => {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <div className="section-label mb-6">YOU'RE IN GOOD HANDS</div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+          <div className="section-label mb-4 sm:mb-6">YOU'RE IN GOOD HANDS</div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">
             We Ship.{" "}
             <span 
               className="font-serif italic font-normal"
@@ -310,7 +330,7 @@ const ProductsSection = () => {
               All the time.
             </span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl">
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl">
             We work with teams across industries, we speak to experts, we do our research 
             and we are always experimenting all day, everyday. We've been building technology 
             for a long time and it shows.
@@ -320,7 +340,7 @@ const ProductsSection = () => {
         {/* Products horizontal scroll */}
         <div className="relative">
           <div
-            className="flex gap-6 overflow-x-auto pb-6 snap-x snap-proximity px-4 md:px-6 scrollbar-none"
+            className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 sm:pb-6 snap-x snap-proximity px-2 sm:px-4 md:px-6 scrollbar-none"
             ref={scrollerRef}
             style={{
               scrollSnapStop: "always",

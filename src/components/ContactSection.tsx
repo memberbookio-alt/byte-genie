@@ -65,16 +65,16 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-32 relative">
-      <div className="container mx-auto px-6 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+    <section id="contact" className="py-16 sm:py-24 lg:py-32 relative">
+      <div className="container mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-start">
           {/* Left column - CTA */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-card via-card to-secondary/30 p-12"
+            className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-card via-card to-secondary/30 p-8 sm:p-10 lg:p-12"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent" />
             <div className="relative z-10">
@@ -104,7 +104,7 @@ const ContactSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
               {/* Name */}
               <div>
                 <input
@@ -115,7 +115,7 @@ const ContactSection = () => {
                   placeholder="Your Name"
                   required
                   maxLength={100}
-                  className="w-full px-6 py-4 bg-card border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-all"
+                  className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-card border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-all text-sm sm:text-base"
                 />
               </div>
 
@@ -128,7 +128,7 @@ const ContactSection = () => {
                   onChange={handleChange}
                   placeholder="Company Name"
                   maxLength={100}
-                  className="w-full px-6 py-4 bg-card border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-all"
+                  className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-card border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-all text-sm sm:text-base"
                 />
               </div>
 
@@ -142,7 +142,7 @@ const ContactSection = () => {
                   required
                   rows={5}
                   maxLength={1000}
-                  className="w-full px-6 py-4 bg-card border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-all resize-none"
+                  className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-card border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50 transition-all resize-none text-sm sm:text-base"
                 />
               </div>
 
